@@ -56,6 +56,8 @@ local function handleCode(c)
 		print("Error: 500 (Internal Server Error)")
 	elseif c == "503" then
 		print("Error: 503 (Service Unavailable)")
+	elseif c == "timeout" then
+		print("Error: Could not connect (Timeout)")
 	else
 		return true
 	end
@@ -71,6 +73,16 @@ local function request(endpoint, region, url, key)
 	local b, c, h = https.request(final)
 
 	return b, c, h
+
+end
+
+local function decode(tbl)
+
+	local jtbl = "[" .. tbl .. "]"
+
+	local decoded = json.decode(jtbl)
+
+	return decoded[1]
 
 end
 
@@ -102,18 +114,48 @@ function riot:setKey(key)
 
 end
 
-function riot:summonerInfo(summoner)
+function riot:summonerInfoByName(summoner, raw)
 
 	local b, c, h = request(self.endpoint, self.region, "v1.4/summoner/by-name/" .. summoner, self.key)
 
-	if handleCode(c) then
+	local final = nil
 
-		return b, c, h
-
+	if raw then
+		final = b
 	else
 
-		return nil, c, h
+		final = decode(b)
+		final = final[string.lower(summoner)]
 
+	end
+
+	if handleCode(c) then
+		return final, c, h
+	else
+		return nil, c, h
+	end
+
+end
+
+function riot:summonerInfoByID(id, raw)
+
+	local b, c, h = request(self.endpoint, self.region, "v1.4/summoner/" .. tostring(id), self.key)
+
+	local final = nil
+
+	if raw then
+		final = b
+	else
+
+		final = decode(b)
+		final = final[tostring(id)]
+
+	end
+
+	if handleCode(c) then
+		return final, c, h
+	else
+		return nil, c, h
 	end
 
 end
