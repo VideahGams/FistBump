@@ -114,6 +114,10 @@ function riot:setKey(key)
 
 end
 
+--[[---------------------------------------------------------
+	summoner-v1.4 [BR, EUNE, EUW, KR, LAN, LAS, NA, OCE, RU, TR]
+--]]---------------------------------------------------------
+
 function riot:summonerInfoByName(summoner, raw)
 
 	local b, c, h = request(self.endpoint, self.region, "v1.4/summoner/by-name/" .. summoner, self.key)
@@ -140,6 +144,29 @@ end
 function riot:summonerInfoByID(id, raw)
 
 	local b, c, h = request(self.endpoint, self.region, "v1.4/summoner/" .. tostring(id), self.key)
+
+	local final = nil
+
+	if raw then
+		final = b
+	else
+
+		final = decode(b)
+		final = final[tostring(id)]
+
+	end
+
+	if handleCode(c) then
+		return final, c, h
+	else
+		return nil, c, h
+	end
+
+end
+
+function riot:summonerName(id, raw)
+
+	local b, c, h = request(self.endpoint, self.region, "v1.4/summoner/" .. tostring(id) .. "/name", self.key)
 
 	local final = nil
 
