@@ -66,7 +66,7 @@ end
 
 local function request(endpoint, region, url, key)
 
-	local final = "https://" .. endpoints[endpoint] .. "/api/lol/" .. region .. "/" .. url .. "?api_key=" .. key
+	local final = "https://" .. endpoints[endpoint] .. "/api/lol/" .. region .. "/" .. url .. "api_key=" .. key
 
 	print(final)
 
@@ -120,7 +120,7 @@ end
 
 function riot:summonerInfoByName(summoner, raw)
 
-	local b, c, h = request(self.endpoint, self.region, "v1.4/summoner/by-name/" .. summoner, self.key)
+	local b, c, h = request(self.endpoint, self.region, "v1.4/summoner/by-name/" .. summoner .. "?", self.key)
 
 	local final = nil
 
@@ -143,7 +143,7 @@ end
 
 function riot:summonerInfoByID(id, raw)
 
-	local b, c, h = request(self.endpoint, self.region, "v1.4/summoner/" .. tostring(id), self.key)
+	local b, c, h = request(self.endpoint, self.region, "v1.4/summoner/" .. tostring(id) .. "?", self.key)
 
 	local final = nil
 
@@ -166,7 +166,7 @@ end
 
 function riot:summonerName(id, raw)
 
-	local b, c, h = request(self.endpoint, self.region, "v1.4/summoner/" .. tostring(id) .. "/name", self.key)
+	local b, c, h = request(self.endpoint, self.region, "v1.4/summoner/" .. tostring(id) .. "/name" .. "?", self.key)
 
 	local final = nil
 
@@ -176,6 +176,32 @@ function riot:summonerName(id, raw)
 
 		final = decode(b)
 		final = final[tostring(id)]
+
+	end
+
+	if handleCode(c) then
+		return final, c, h
+	else
+		return nil, c, h
+	end
+
+end
+
+--[[---------------------------------------------------------
+	api-challenge-v4.1 [BR, EUNE, EUW, KR, LAN, LAS, NA, OCE, RU, TR]
+--]]---------------------------------------------------------
+
+function riot:getIDList(beginDate, raw)
+
+	local b, c, h = request(self.endpoint, self.region, "v4.1/game/ids" .. "?beginDate=" .. tostring(beginDate) .. "&", self.key)
+
+	local final = nil
+
+	if raw then
+		final = b
+	else
+
+		final = decode(b)
 
 	end
 
