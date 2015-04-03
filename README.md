@@ -7,7 +7,7 @@
 
 *FistBump* is an implementation of the Riot Games API in Lua.
 
-As of **03/04/2015**, all of the following modules are complete:
+As of **03/04/2015**, all of the following methods are complete:
 
 * **api-challenge-v4.1**
 * **champion-v1.2**
