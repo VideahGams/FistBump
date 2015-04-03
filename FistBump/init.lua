@@ -145,6 +145,7 @@ end
 	api-challenge-v4.1 [BR, EUNE, EUW, KR, LAN, LAS, NA, OCE, RU, TR]
 --]]---------------------------------------------------------
 
+-- https://developer.riotgames.com/api/methods#!/980/3340
 function riot:getIDList(beginDate, raw)
 
 	local b, c, h = self:_request("${endpoint}/api/lol/${region}/v4.1/game/ids?beginDate=${beginDate}&${key}" % {beginDate = beginDate})
@@ -170,6 +171,7 @@ end
 	champion-v1.2 [BR, EUNE, EUW, KR, LAN, LAS, NA, OCE, RU, TR]
 --]]---------------------------------------------------------
 
+-- https://developer.riotgames.com/api/methods#!/958/3290
 function riot:getAllChampions(freeToPlay, raw)
 
 	freeToPlay = freeToPlay or false
@@ -193,6 +195,7 @@ function riot:getAllChampions(freeToPlay, raw)
 
 end
 
+-- https://developer.riotgames.com/api/methods#!/958/3289
 function riot:getChampionByID(id, raw)
 
 	local b, c, h = self:_request("${endpoint}/api/lol/${region}/v1.2/champion/${id}?${key}" % {id = id})
@@ -218,6 +221,7 @@ end
 	current-game-v1.0 [BR, EUNE, EUW, KR, LAN, LAS, NA, OCE, PBE, RU, TR]
 --]]---------------------------------------------------------
 
+-- https://developer.riotgames.com/api/methods#!/976/3336
 function riot:gameInfoFromID(id, raw)
 
 	local b, c, h = self:_request("${endpoint}/observer-mode/rest/consumer/getSpectatorGameInfo/${platform}/${id}?${key}" % {id = id})
@@ -243,6 +247,7 @@ end
 	featured-games-v1.0 [BR, EUNE, EUW, KR, LAN, LAS, NA, OCE, PBE, RU, TR]
 --]]---------------------------------------------------------
 
+-- https://developer.riotgames.com/api/methods#!/977/3337
 function riot:getFeaturedGameList(raw)
 
 	local b, c, h = self:_request("${endpoint}/observer-mode/rest/featured/?${key}")
@@ -268,6 +273,7 @@ end
 	game-v1.3 [BR, EUNE, EUW, KR, LAN, LAS, NA, OCE, RU, TR]
 --]]---------------------------------------------------------
 
+-- https://developer.riotgames.com/api/methods#!/979/3339
 function riot:getRecentGames(id, raw)
 
 	local b, c, h = self:_request("${endpoint}/api/lol/${region}/v1.3/game/by-summoner/${id}/recent?${key}" % {id = id})
@@ -293,6 +299,7 @@ end
 	league-v2.5 [BR, EUNE, EUW, KR, LAN, LAS, NA, OCE, RU, TR]
 --]]---------------------------------------------------------
 
+-- https://developer.riotgames.com/api/methods#!/936/3241
 function riot:getLeagueBySummonerID(id, raw)
 
 	local b, c, h = self:_request("${endpoint}/api/lol/${region}/v2.5/league/by-summoner/${id}?${key}" % {id = id})
@@ -315,6 +322,7 @@ function riot:getLeagueBySummonerID(id, raw)
 
 end
 
+-- https://developer.riotgames.com/api/methods#!/936/3245
 function riot:getLeagueEntriesBySummonerID(id, raw)
 
 	local b, c, h = self:_request("${endpoint}/api/lol/${region}/v2.5/league/by-summoner/${id}/entry?${key}" % {id = id})
@@ -337,6 +345,7 @@ function riot:getLeagueEntriesBySummonerID(id, raw)
 
 end
 
+-- https://developer.riotgames.com/api/methods#!/936/3242
 function riot:getLeagueByTeamID(id, raw)
 
 	local b, c, h = self:_request("${endpoint}/api/lol/${region}/v2.5/league/by-team/${id}?${key}" % {id = id})
@@ -359,6 +368,7 @@ function riot:getLeagueByTeamID(id, raw)
 
 end
 
+-- https://developer.riotgames.com/api/methods#!/936/3244
 function riot:getLeagueEntriesByTeamID(id, raw)
 
 	local b, c, h = self:_request("${endpoint}/api/lol/${region}/v2.5/league/by-team/${id}/entry?${key}" % {id = id})
@@ -381,6 +391,7 @@ function riot:getLeagueEntriesByTeamID(id, raw)
 
 end
 
+-- https://developer.riotgames.com/api/methods#!/936/3243
 function riot:getChallengerLeague(queue, raw)
 
 	local b, c, h = self:_request("${endpoint}/api/lol/${region}/v2.5/league/challenger/?type=${queue}&${key}" % {queue = queue})
@@ -411,6 +422,8 @@ end
 --[[---------------------------------------------------------
 	lol-status-v1.0 [BR, EUNE, EUW, LAN, LAS, NA, OCE, PBE, RU, TR] 
 --]]---------------------------------------------------------
+
+-- https://developer.riotgames.com/api/methods#!/908/3143
 function riot:getShardList(raw)
 
 	local b, c, h = http.request("http://status.leagueoflegends.com/shards") -- HTTPS does not work.
@@ -432,6 +445,7 @@ function riot:getShardList(raw)
 
 end
 
+-- https://developer.riotgames.com/api/methods#!/908/3142
 function riot:getShardStatus(region, raw)
 
 	local b, c, h = http.request("http://status.leagueoflegends.com/shards/${region}" % {region = region}) -- HTTPS does not work.
@@ -457,6 +471,7 @@ end
 	match-v2.2 [BR, EUNE, EUW, KR, LAN, LAS, NA, OCE, RU, TR] 
 --]]---------------------------------------------------------
 
+-- https://developer.riotgames.com/api/methods#!/967/3313
 function riot:getMatchByID(id, includeTimeline, raw)
 
 	includeTimeline = includeTimeline or false
@@ -484,6 +499,7 @@ end
 	matchhistory-v2.2 [BR, EUNE, EUW, KR, LAN, LAS, NA, OCE, RU, TR] 
 --]]---------------------------------------------------------
 
+-- https://developer.riotgames.com/api/methods#!/978/3338
 function riot:matchHistoryByID(id, championIds, rankedQueues, beginIndex, endIndex, raw)
 
 	championIds = championIds or ""
@@ -520,7 +536,32 @@ end
 	stats-v1.3 [BR, EUNE, EUW, KR, LAN, LAS, NA, OCE, RU, TR] 
 --]]---------------------------------------------------------
 
+-- https://developer.riotgames.com/api/methods#!/961/3297
 function riot:getRankedStats(id, season, raw)
+
+	season = season or ""
+
+	local b, c, h = self:_request("${endpoint}/api/lol/${region}/v1.3/stats/by-summoner/${id}/ranked?season=${season}&${key}" % {id = id, season = season})
+
+	if handleCode(c) then
+
+		local final = nil
+
+		if raw then
+			final = b
+		else
+			final = decode(b)
+		end
+
+		return final, c, h
+	else
+		return nil, c, h
+	end
+
+end
+
+-- https://developer.riotgames.com/api/methods#!/961/3298
+function riot:getAllStats(id, season, raw)
 
 	season = season or ""
 
@@ -547,6 +588,7 @@ end
 	summoner-v1.4 [BR, EUNE, EUW, KR, LAN, LAS, NA, OCE, RU, TR]
 --]]---------------------------------------------------------
 
+-- https://developer.riotgames.com/api/methods#!/960/3292
 function riot:summonerInfoByName(summoner, raw)
 
 	local b, c, h = self:_request("${endpoint}/api/lol/${region}/v1.4/summoner/by-name/${name}?${key}" % {name = summoner})
@@ -569,6 +611,7 @@ function riot:summonerInfoByName(summoner, raw)
 
 end
 
+-- https://developer.riotgames.com/api/methods#!/960/3293
 function riot:summonerInfoByID(id, raw)
 
 	local b, c, h = self:_request("${endpoint}/api/lol/${region}/v1.4/summoner/${id}?${key}" % {id = id})
@@ -591,9 +634,56 @@ function riot:summonerInfoByID(id, raw)
 
 end
 
+-- https://developer.riotgames.com/api/methods#!/960/3295
+function riot:summonerMasteries(id, raw)
+
+	local b, c, h = self:_request("${endpoint}/api/lol/${region}/v1.4/summoner/${id}/masteries?${key}" % {id = id})
+
+	if handleCode(c) then
+
+		local final = nil
+
+		if raw then
+			final = b
+		else
+			final = decode(b)
+			final = final[tostring(id)]
+		end
+
+		return final, c, h
+	else
+		return nil, c, h
+	end
+
+end
+
+-- https://developer.riotgames.com/api/methods#!/960/3296
 function riot:summonerName(id, raw)
 
 	local b, c, h = self:_request("${endpoint}/api/lol/${region}/v1.4/summoner/${id}/name?${key}" % {id = id})
+
+	if handleCode(c) then
+
+		local final = nil
+
+		if raw then
+			final = b
+		else
+			final = decode(b)
+			final = final[tostring(id)]
+		end
+
+		return final, c, h
+	else
+		return nil, c, h
+	end
+
+end
+
+-- https://developer.riotgames.com/api/methods#!/960/3294
+function riot:summonerRunes(id, raw)
+
+	local b, c, h = self:_request("${endpoint}/api/lol/${region}/v1.4/summoner/${id}/runes?${key}" % {id = id})
 
 	if handleCode(c) then
 
@@ -617,6 +707,7 @@ end
 	team-v2.4 [BR, EUNE, EUW, KR, LAN, LAS, NA, OCE, RU, TR] 
 --]]---------------------------------------------------------
 
+-- https://developer.riotgames.com/api/methods#!/937/3247
 function riot:getTeamsFromSummonerID(id, raw)
 
 	local b, c, h = self:_request("${endpoint}/api/lol/${region}/v2.4/team/by-summoner/${id}?${key}" % {id = id})
@@ -639,6 +730,7 @@ function riot:getTeamsFromSummonerID(id, raw)
 
 end
 
+-- https://developer.riotgames.com/api/methods#!/937/3246
 function riot:getTeamsFromTeamID(id, raw)
 
 	local b, c, h = self:_request("${endpoint}/api/lol/${region}/v2.4/team/${id}?${key}" % {id = id})
