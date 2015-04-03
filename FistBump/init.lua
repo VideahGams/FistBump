@@ -188,6 +188,56 @@ function riot:summonerName(id, raw)
 end
 
 --[[---------------------------------------------------------
+	champion-v1.2 [BR, EUNE, EUW, KR, LAN, LAS, NA, OCE, RU, TR]
+--]]---------------------------------------------------------
+
+function riot:getAllChampions(freeToPlay, raw)
+
+	freeToPlay = freeToPlay or false
+
+	local b, c, h = request(self.endpoint, self.region, "v1.2/champion" .. "?freeToPlay=" .. tostring(freeToPlay) .. "&", self.key)
+
+	local final = nil
+
+	if raw then
+		final = b
+	else
+
+		final = decode(b)
+
+	end
+
+	if handleCode(c) then
+		return final, c, h
+	else
+		return nil, c, h
+	end
+
+end
+
+function riot:getChampionByID(id, raw)
+
+	local b, c, h = request(self.endpoint, self.region, "v1.2/champion/" .. tostring(id)  .. "?", self.key)
+
+	local final = nil
+
+	if raw then
+		final = b
+	else
+
+		final = decode(b)
+
+	end
+
+	if handleCode(c) then
+		return final, c, h
+	else
+		return nil, c, h
+	end
+
+end
+
+--[[---------------------------------------------------------
 	api-challenge-v4.1 [BR, EUNE, EUW, KR, LAN, LAS, NA, OCE, RU, TR]
 --]]---------------------------------------------------------
 
