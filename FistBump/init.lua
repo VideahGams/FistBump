@@ -417,6 +417,7 @@ end
 	lol-static-data-v1.2 [BR, EUNE, EUW, KR, LAN, LAS, NA, OCE, RU, TR] 
 --]]---------------------------------------------------------
 
+-- https://developer.riotgames.com/api/methods#!/968/3326
 function riot:getStaticChampionList(locale, version, dataById, champData, raw)
 
 	locale = locale or ""
@@ -448,6 +449,7 @@ function riot:getStaticChampionList(locale, version, dataById, champData, raw)
 
 end
 
+-- https://developer.riotgames.com/api/methods#!/968/3322
 function riot:getStaticChampionByID(id, locale, version, champData, raw)
 
 	locale = locale or ""
@@ -478,6 +480,7 @@ function riot:getStaticChampionByID(id, locale, version, champData, raw)
 
 end
 
+-- https://developer.riotgames.com/api/methods#!/968/3314
 function riot:getStaticItemList(locale, version, itemListData, raw)
 
 	locale = locale or ""
@@ -508,6 +511,7 @@ function riot:getStaticItemList(locale, version, itemListData, raw)
 
 end
 
+-- https://developer.riotgames.com/api/methods#!/968/3319
 function riot:getStaticItemFromID(id, locale, version, itemData, raw)
 
 	locale = locale or ""
@@ -538,6 +542,7 @@ function riot:getStaticItemFromID(id, locale, version, itemData, raw)
 
 end
 
+-- https://developer.riotgames.com/api/methods#!/968/3316
 function riot:getStaticLanguageStrings(locale, version, raw)
 
 	locale = locale or ""
@@ -565,6 +570,7 @@ function riot:getStaticLanguageStrings(locale, version, raw)
 
 end
 
+-- https://developer.riotgames.com/api/methods#!/968/3324
 function riot:getStaticLanguages(raw)
 
 	local b, c, h = self:_request("global.api.pvp.net/api/lol/static-data/${region}/v1.2/languages?${key}")
@@ -586,6 +592,7 @@ function riot:getStaticLanguages(raw)
 
 end
 
+-- https://developer.riotgames.com/api/methods#!/968/3328
 function riot:getStaticMapData(raw)
 
 	locale = locale or ""
@@ -613,6 +620,7 @@ function riot:getStaticMapData(raw)
 
 end
 
+-- https://developer.riotgames.com/api/methods#!/968/3317
 function riot:getStaticMasteryList(locale, version, masteryListData, raw)
 
 	locale = locale or ""
@@ -642,6 +650,7 @@ function riot:getStaticMasteryList(locale, version, masteryListData, raw)
 
 end
 
+-- https://developer.riotgames.com/api/methods#!/968/3318
 function riot:getStaticMasteryFromID(id, locale, version, masteryData, raw)
 
 	locale = locale or ""
@@ -672,6 +681,7 @@ function riot:getStaticMasteryFromID(id, locale, version, masteryData, raw)
 
 end
 
+-- https://developer.riotgames.com/api/methods#!/968/3325
 function riot:getStaticRealmData(raw)
 
 	local b, c, h = self:_request("global.api.pvp.net/api/lol/static-data/${region}/v1.2/realm?${key}")
@@ -693,6 +703,7 @@ function riot:getStaticRealmData(raw)
 
 end
 
+-- https://developer.riotgames.com/api/methods#!/968/3315
 function riot:getStaticRuneList(locale, version, runeListData, raw)
 
 	locale = locale or ""
@@ -722,6 +733,7 @@ function riot:getStaticRuneList(locale, version, runeListData, raw)
 
 end
 
+-- https://developer.riotgames.com/api/methods#!/968/3321
 function riot:getStaticRuneFromID(id, locale, version, runeData, raw)
 
 	locale = locale or ""
@@ -752,6 +764,7 @@ function riot:getStaticRuneFromID(id, locale, version, runeData, raw)
 
 end
 
+-- https://developer.riotgames.com/api/methods#!/968/3327
 function riot:getStaticSpellList(locale, version, dataById, spellData, raw)
 
 	locale = locale or ""
@@ -783,6 +796,7 @@ function riot:getStaticSpellList(locale, version, dataById, spellData, raw)
 
 end
 
+-- https://developer.riotgames.com/api/methods#!/968/3320
 function riot:getStaticSpellFromID(id, locale, version, spellData, raw)
 
 	locale = locale or ""
@@ -813,6 +827,7 @@ function riot:getStaticSpellFromID(id, locale, version, spellData, raw)
 
 end
 
+-- https://developer.riotgames.com/api/methods#!/968/3323
 function riot:getStaticVersionList(raw)
 
 	local b, c, h = self:_request("global.api.pvp.net/api/lol/static-data/${region}/v1.2/versions?${key}")
