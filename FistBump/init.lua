@@ -417,7 +417,126 @@ end
 	lol-static-data-v1.2 [BR, EUNE, EUW, KR, LAN, LAS, NA, OCE, RU, TR] 
 --]]---------------------------------------------------------
 
---TODO--
+function riot:getStaticChampionList(locale, version, dataById, champData, raw)
+
+	locale = locale or ""
+	version = version or ""
+	dataById = tostring(dataById) or ""
+	champData = champData or ""
+
+	local b, c, h = self:_request("global.api.pvp.net/api/lol/static-data/${region}/v1.2/champion?locale=${locale}&version=${version}&dataById=${champData}&${key}" % {
+		locale = locale,
+		version = version,
+		dataById = dataById,
+		champData = champData
+		})
+
+	if handleCode(c) then
+
+		local final = nil
+
+		if raw then
+			final = b
+		else
+			final = decode(b)
+		end
+
+		return final, c, h
+	else
+		return nil, c, h
+	end
+
+end
+
+function riot:getStaticChampionByID(id, locale, version, champData, raw)
+
+	locale = locale or ""
+	version = version or ""
+	champData = champData or ""
+
+	local b, c, h = self:_request("global.api.pvp.net/api/lol/static-data/${region}/v1.2/champion/${id}?locale=${locale}&version=${version}&${key}" % {
+		id = id,
+		locale = locale,
+		version = version,
+		champData = champData
+		})
+
+	if handleCode(c) then
+
+		local final = nil
+
+		if raw then
+			final = b
+		else
+			final = decode(b)
+		end
+
+		return final, c, h
+	else
+		return nil, c, h
+	end
+
+end
+
+function riot:getStaticItemList(locale, version, champData, raw)
+
+	locale = locale or ""
+	version = version or ""
+	champData = champData or ""
+
+	local b, c, h = self:_request("global.api.pvp.net/api/lol/static-data/${region}/v1.2/item?locale=${locale}&version=${version}&${key}" % {
+		id = id,
+		locale = locale,
+		version = version,
+		champData = champData
+		})
+
+	if handleCode(c) then
+
+		local final = nil
+
+		if raw then
+			final = b
+		else
+			final = decode(b)
+		end
+
+		return final, c, h
+	else
+		return nil, c, h
+	end
+
+end
+
+function riot:getStaticItemFromID(id, locale, version, champData, raw)
+
+	locale = locale or ""
+	version = version or ""
+	champData = champData or ""
+
+	local b, c, h = self:_request("global.api.pvp.net/api/lol/static-data/${region}/v1.2/item/${id}?locale=${locale}&version=${version}&${key}" % {
+		id = id,
+		locale = locale,
+		version = version,
+		champData = champData
+		})
+
+	if handleCode(c) then
+
+		local final = nil
+
+		if raw then
+			final = b
+		else
+			final = decode(b)
+		end
+
+		return final, c, h
+	else
+		return nil, c, h
+	end
+
+end
 
 --[[---------------------------------------------------------
 	lol-status-v1.0 [BR, EUNE, EUW, LAN, LAS, NA, OCE, PBE, RU, TR] 
