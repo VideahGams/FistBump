@@ -20,8 +20,6 @@ As of **03/04/2015**, all of the following methods are complete:
 * **stats-v1.3**
 * **summoner-v1.4**
 * **team-v2.4**
-
-The following are still WiP:
 * **lol-static-data-v1.2**
 
 # Librarys
