@@ -473,6 +473,33 @@ function riot:getShardStatus(region, raw)
 end
 
 --[[---------------------------------------------------------
+	match-v2.2 [BR, EUNE, EUW, KR, LAN, LAS, NA, OCE, RU, TR] 
+--]]---------------------------------------------------------
+
+function riot:getMatchByID(id, includeTimeline, raw)
+
+	includeTimeline = includeTimeline or false
+
+	local b, c, h = self:_request("${endpoint}/api/lol/${region}/v2.2/match/${id}?includeTimeline=false&${key}" % {id = id, includeTimeline = includeTimeline})
+
+	if handleCode(c) then
+
+		local final = nil
+
+		if raw then
+			final = b
+		else
+			final = decode(b)
+		end
+
+		return final, c, h
+	else
+		return nil, c, h
+	end
+
+end
+
+--[[---------------------------------------------------------
 	summoner-v1.4 [BR, EUNE, EUW, KR, LAN, LAS, NA, OCE, RU, TR]
 --]]---------------------------------------------------------
 
