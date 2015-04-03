@@ -613,4 +613,52 @@ function riot:summonerName(id, raw)
 
 end
 
+--[[---------------------------------------------------------
+	team-v2.4 [BR, EUNE, EUW, KR, LAN, LAS, NA, OCE, RU, TR] 
+--]]---------------------------------------------------------
+
+function riot:getTeamsFromSummonerID(id, raw)
+
+	local b, c, h = self:_request("${endpoint}/api/lol/${region}/v2.4/team/by-summoner/${id}?${key}" % {id = id})
+
+	if handleCode(c) then
+
+		local final = nil
+
+		if raw then
+			final = b
+		else
+			final = decode(b)
+			final = final[tostring(id)]
+		end
+
+		return final, c, h
+	else
+		return nil, c, h
+	end
+
+end
+
+function riot:getTeamsFromTeamID(id, raw)
+
+	local b, c, h = self:_request("${endpoint}/api/lol/${region}/v2.4/team/${id}?${key}" % {id = id})
+
+	if handleCode(c) then
+
+		local final = nil
+
+		if raw then
+			final = b
+		else
+			final = decode(b)
+			final = final[tostring(id)]
+		end
+
+		return final, c, h
+	else
+		return nil, c, h
+	end
+
+end
+
 return riot
