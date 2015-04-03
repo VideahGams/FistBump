@@ -15,12 +15,12 @@ As of **03/04/2015**, all of the following methods are complete:
 * **featured-games-v1.0**
 * **game-v1.3**
 * **league-v2.5**
+* **lol-static-data-v1.2**
 * **lol-status-v1.0**
 * **match-v2.2**
 * **stats-v1.3**
 * **summoner-v1.4**
 * **team-v2.4**
-* **lol-static-data-v1.2**
 
 # Librarys
 FistBump uses the following librarys:
