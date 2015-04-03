@@ -481,6 +481,42 @@ function riot:getMatchByID(id, includeTimeline, raw)
 end
 
 --[[---------------------------------------------------------
+	matchhistory-v2.2 [BR, EUNE, EUW, KR, LAN, LAS, NA, OCE, RU, TR] 
+--]]---------------------------------------------------------
+
+function riot:matchHistoryByID(id, championIds, rankedQueues, beginIndex, endIndex, raw)
+
+	championIds = championIds or ""
+	rankedQueues = rankedQueues or ""
+	beginIndex = beginIndex or ""
+	endIndex = endIndex or ""
+
+	local b, c, h = self:_request("${endpoint}/api/lol/${region}/v2.2/matchhistory/${id}?championIds=${championIds}&rankedQueues=${rankedQueues}&beginIndex=${beginIndex}&endIndex=${endIndex}&${key}" % {
+		id = id,
+		championIds = championIds,
+		rankedQueues = rankedQueues,
+		beginIndex = beginIndex,
+		endIndex = endIndex})
+
+	if handleCode(c) then
+
+		local final = nil
+
+		if raw then
+			final = b
+		else
+			final = decode(b)
+			final = final['matches']
+		end
+
+		return final, c, h
+	else
+		return nil, c, h
+	end
+
+end
+
+--[[---------------------------------------------------------
 	summoner-v1.4 [BR, EUNE, EUW, KR, LAN, LAS, NA, OCE, RU, TR]
 --]]---------------------------------------------------------
 
