@@ -478,17 +478,17 @@ function riot:getStaticChampionByID(id, locale, version, champData, raw)
 
 end
 
-function riot:getStaticItemList(locale, version, champData, raw)
+function riot:getStaticItemList(locale, version, itemListData, raw)
 
 	locale = locale or ""
 	version = version or ""
-	champData = champData or ""
+	itemListData = itemListData or ""
 
-	local b, c, h = self:_request("global.api.pvp.net/api/lol/static-data/${region}/v1.2/item?locale=${locale}&version=${version}&${key}" % {
+	local b, c, h = self:_request("global.api.pvp.net/api/lol/static-data/${region}/v1.2/item?locale=${locale}&version=${version}&itemListData=${itemListData}&${key}" % {
 		id = id,
 		locale = locale,
 		version = version,
-		champData = champData
+		itemListData = itemListData
 		})
 
 	if handleCode(c) then
@@ -508,18 +508,314 @@ function riot:getStaticItemList(locale, version, champData, raw)
 
 end
 
-function riot:getStaticItemFromID(id, locale, version, champData, raw)
+function riot:getStaticItemFromID(id, locale, version, itemData, raw)
 
 	locale = locale or ""
 	version = version or ""
-	champData = champData or ""
+	itemData = itemData or ""
 
 	local b, c, h = self:_request("global.api.pvp.net/api/lol/static-data/${region}/v1.2/item/${id}?locale=${locale}&version=${version}&${key}" % {
 		id = id,
 		locale = locale,
 		version = version,
-		champData = champData
+		itemData = itemData
 		})
+
+	if handleCode(c) then
+
+		local final = nil
+
+		if raw then
+			final = b
+		else
+			final = decode(b)
+		end
+
+		return final, c, h
+	else
+		return nil, c, h
+	end
+
+end
+
+function riot:getStaticLanguageStrings(locale, version, raw)
+
+	locale = locale or ""
+	version = version or ""
+
+	local b, c, h = self:_request("global.api.pvp.net/api/lol/static-data/${region}/v1.2/language-strings?locale=${locale}&version=${version}&${key}" % {
+		locale = locale,
+		version = version,
+		})
+
+	if handleCode(c) then
+
+		local final = nil
+
+		if raw then
+			final = b
+		else
+			final = decode(b)
+		end
+
+		return final, c, h
+	else
+		return nil, c, h
+	end
+
+end
+
+function riot:getStaticLanguages(raw)
+
+	local b, c, h = self:_request("global.api.pvp.net/api/lol/static-data/${region}/v1.2/languages?${key}")
+
+	if handleCode(c) then
+
+		local final = nil
+
+		if raw then
+			final = b
+		else
+			final = decode(b)
+		end
+
+		return final, c, h
+	else
+		return nil, c, h
+	end
+
+end
+
+function riot:getStaticMapData(raw)
+
+	locale = locale or ""
+	version = version or ""
+
+	local b, c, h = self:_request("global.api.pvp.net/api/lol/static-data/${region}/v1.2/map?locale=${locale}&version=${version}&${key}" % {
+		locale = locale,
+		version = version,
+		})
+
+	if handleCode(c) then
+
+		local final = nil
+
+		if raw then
+			final = b
+		else
+			final = decode(b)
+		end
+
+		return final, c, h
+	else
+		return nil, c, h
+	end
+
+end
+
+function riot:getStaticMasteryList(locale, version, masteryListData, raw)
+
+	locale = locale or ""
+	version = version or ""
+	masteryListData = masteryListData or ""
+
+	local b, c, h = self:_request("global.api.pvp.net/api/lol/static-data/${region}/v1.2/mastery?locale=${locale}&version=${version}&masteryListData=${masteryListData}&${key}" % {
+		locale = locale,
+		version = version,
+		masteryListData = masteryListData
+		})
+
+	if handleCode(c) then
+
+		local final = nil
+
+		if raw then
+			final = b
+		else
+			final = decode(b)
+		end
+
+		return final, c, h
+	else
+		return nil, c, h
+	end
+
+end
+
+function riot:getStaticMasteryFromID(id, locale, version, masteryData, raw)
+
+	locale = locale or ""
+	version = version or ""
+	masteryData = masteryData or ""
+
+	local b, c, h = self:_request("global.api.pvp.net/api/lol/static-data/${region}/v1.2/mastery/${id}?locale=${locale}&version=${version}&masteryData=${masteryData}&${key}" % {
+		id = id,
+		locale = locale,
+		version = version,
+		masteryData = masteryData
+		})
+
+	if handleCode(c) then
+
+		local final = nil
+
+		if raw then
+			final = b
+		else
+			final = decode(b)
+		end
+
+		return final, c, h
+	else
+		return nil, c, h
+	end
+
+end
+
+function riot:getStaticRealmData(raw)
+
+	local b, c, h = self:_request("global.api.pvp.net/api/lol/static-data/${region}/v1.2/realm?${key}")
+
+	if handleCode(c) then
+
+		local final = nil
+
+		if raw then
+			final = b
+		else
+			final = decode(b)
+		end
+
+		return final, c, h
+	else
+		return nil, c, h
+	end
+
+end
+
+function riot:getStaticRuneList(locale, version, runeListData, raw)
+
+	locale = locale or ""
+	version = version or ""
+	runeListData = runeListData or ""
+
+	local b, c, h = self:_request("global.api.pvp.net/api/lol/static-data/${region}/v1.2/rune?locale=${locale}&version=${version}&runeListData=${runeListData}&${key}" % {
+		locale = locale,
+		version = version,
+		runeListData = runeListData
+		})
+
+	if handleCode(c) then
+
+		local final = nil
+
+		if raw then
+			final = b
+		else
+			final = decode(b)
+		end
+
+		return final, c, h
+	else
+		return nil, c, h
+	end
+
+end
+
+function riot:getStaticRuneFromID(id, locale, version, runeData, raw)
+
+	locale = locale or ""
+	version = version or ""
+	runeData = runeData or ""
+
+	local b, c, h = self:_request("global.api.pvp.net/api/lol/static-data/${region}/v1.2/rune/${id}?locale=${locale}&version=${version}&runeData=${runeData}&${key}" % {
+		id = id,
+		locale = locale,
+		version = version,
+		runeData = runeData
+		})
+
+	if handleCode(c) then
+
+		local final = nil
+
+		if raw then
+			final = b
+		else
+			final = decode(b)
+		end
+
+		return final, c, h
+	else
+		return nil, c, h
+	end
+
+end
+
+function riot:getStaticSpellList(locale, version, dataById, spellData, raw)
+
+	locale = locale or ""
+	version = version or ""
+	dataById = dataById or ""
+	spellData = spellData or ""
+
+	local b, c, h = self:_request("global.api.pvp.net/api/lol/static-data/${region}/v1.2/summoner-spell?locale=${locale}&version=${version}&dataById=${dataById}&spellData=${spellData}&${key}" % {
+		locale = locale,
+		version = version,
+		dataById = dataById,
+		spellData = spellData
+		})
+
+	if handleCode(c) then
+
+		local final = nil
+
+		if raw then
+			final = b
+		else
+			final = decode(b)
+		end
+
+		return final, c, h
+	else
+		return nil, c, h
+	end
+
+end
+
+function riot:getStaticSpellFromID(id, locale, version, spellData, raw)
+
+	locale = locale or ""
+	version = version or ""
+	spellData = spellData or ""
+
+	local b, c, h = self:_request("global.api.pvp.net/api/lol/static-data/${region}/v1.2/summoner-spell/${id}?locale=${locale}&version=${version}&spellData=${spellData}&${key}" % {
+		id = id,
+		locale = locale,
+		version = version,
+		spellData = spellData
+		})
+
+	if handleCode(c) then
+
+		local final = nil
+
+		if raw then
+			final = b
+		else
+			final = decode(b)
+		end
+
+		return final, c, h
+	else
+		return nil, c, h
+	end
+
+end
+
+function riot:getStaticVersionList(raw)
+
+	local b, c, h = self:_request("global.api.pvp.net/api/lol/static-data/${region}/v1.2/versions?${key}")
 
 	if handleCode(c) then
 
