@@ -20,6 +20,12 @@
 -- OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 -- THE SOFTWARE.
 
+local function interp(s, tab)
+  return (s:gsub('($%b{})', function(w) return tab[w:sub(3, -2)] or w end))
+end
+
+getmetatable("").__mod = interp
+
 local path = ... .. "."
 local https = require(path .. "https")
 local class = require(path .. "middleclass")
@@ -40,6 +46,20 @@ local endpoints = {
 	['ru'] = "ru.api.pvp.net",
 	['pbe'] = "pbe.api.pvp.net",
 	['global'] = "global.api.pvp.net"
+}
+
+local platformIDs = {
+	['br'] = "BR1",
+	['eune'] = "EUN1",
+	['euw'] = "EUW1",
+	['kr'] = "KR",
+	['lan'] = "LA1",
+	['las'] = "LA2",
+	['na'] = "NA1",
+	['oce'] = "OC1",
+	['tr'] = "TR1",
+	['ru'] = "RU",
+	['pbe'] = "PBE1",
 }
 
 local function handleCode(c)
@@ -64,9 +84,15 @@ local function handleCode(c)
 
 end
 
-local function request(endpoint, region, url, key)
+function riot:_request(url)
 
-	local final = "https://" .. endpoints[endpoint] .. "/api/lol/" .. region .. "/" .. url .. "api_key=" .. key
+	local final = "https://" .. url % {
+	endpoint = endpoints[self.endpoint],
+	region = self.region,
+	key = "api_key=" .. self.key,
+	platform = platformIDs[self.region]
+
+	}
 
 	print(final)
 
@@ -120,7 +146,7 @@ end
 
 function riot:summonerInfoByName(summoner, raw)
 
-	local b, c, h = request(self.endpoint, self.region, "v1.4/summoner/by-name/" .. summoner .. "?", self.key)
+	local b, c, h = self:_request("${endpoint}/api/lol/${region}/v1.4/summoner/by-name/${name}?${key}" % {name = summoner})
 
 	local final = nil
 
@@ -143,7 +169,7 @@ end
 
 function riot:summonerInfoByID(id, raw)
 
-	local b, c, h = request(self.endpoint, self.region, "v1.4/summoner/" .. tostring(id) .. "?", self.key)
+	local b, c, h = self:_request("${endpoint}/api/lol/${region}/v1.4/summoner/${id}?${key}" % {id = id})
 
 	local final = nil
 
@@ -166,7 +192,7 @@ end
 
 function riot:summonerName(id, raw)
 
-	local b, c, h = request(self.endpoint, self.region, "v1.4/summoner/" .. tostring(id) .. "/name" .. "?", self.key)
+	local b, c, h = self:_request("${endpoint}/api/lol/${region}/v1.4/summoner/${id}/name?${key}" % {id = id})
 
 	local final = nil
 
@@ -195,7 +221,7 @@ function riot:getAllChampions(freeToPlay, raw)
 
 	freeToPlay = freeToPlay or false
 
-	local b, c, h = request(self.endpoint, self.region, "v1.2/champion" .. "?freeToPlay=" .. tostring(freeToPlay) .. "&", self.key)
+	local b, c, h = self:_request("${endpoint}/api/lol/${region}/v1.2/champion/?${freeToPlay}&${key}" % {freeToPlay = freeToPlay})
 
 	local final = nil
 
@@ -217,7 +243,7 @@ end
 
 function riot:getChampionByID(id, raw)
 
-	local b, c, h = request(self.endpoint, self.region, "v1.2/champion/" .. tostring(id)  .. "?", self.key)
+	local b, c, h = self:_request("${endpoint}/api/lol/${region}/v1.2/champion/${id}?${key}" % {id = id})
 
 	local final = nil
 
@@ -238,12 +264,48 @@ function riot:getChampionByID(id, raw)
 end
 
 --[[---------------------------------------------------------
+	current-game-v1.0 [BR, EUNE, EUW, KR, LAN, LAS, NA, OCE, PBE, RU, TR]
+--]]---------------------------------------------------------
+
+function riot:gameInfoFromID(id, raw)
+
+	--local b, c, h = request(self.endpoint, self.region, "observer-mode/rest/consumer/getSpectatorGameInfo/" .. platformIDs[self.region] .. tostring(id) .. "?", self.key)
+
+	local b, c, h = self:_request("${endpoint}/observer-mode/rest/consumer/getSpectatorGameInfo/${platform}/${id}?${key}" % {id = id})
+
+	local final = nil
+
+	if handleCode(c) then
+
+		if raw then
+			final = b
+		else
+
+			final = decode(b)
+
+		end
+
+		if tostring(c) == 404 then
+			print("Error: Could not load game (No current game with this Summoner ID)")
+			return
+		end
+
+		return final, c, h
+	else
+		return nil, c, h
+	end
+
+end
+
+--[[---------------------------------------------------------
 	api-challenge-v4.1 [BR, EUNE, EUW, KR, LAN, LAS, NA, OCE, RU, TR]
 --]]---------------------------------------------------------
 
 function riot:getIDList(beginDate, raw)
 
-	local b, c, h = request(self.endpoint, self.region, "v4.1/game/ids" .. "?beginDate=" .. tostring(beginDate) .. "&", self.key)
+	--local b, c, h = request(self.endpoint, self.region, "v4.1/game/ids" .. "?beginDate=" .. tostring(beginDate) .. "&", self.key)
+
+	local b, c, h = self:_request("${endpoint}/api/lol/${region}/v4.1/game/ids?beginDate=${beginDate}&${key}" % {beginDate = beginDate})
 
 	local final = nil
 
