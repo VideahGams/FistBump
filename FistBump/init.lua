@@ -27,6 +27,7 @@ end
 getmetatable("").__mod = interp
 
 local path = ... .. "."
+local http = require("socket.http")
 local https = require(path .. "https")
 local class = require(path .. "middleclass")
 local json = require(path .. "json")
@@ -145,8 +146,6 @@ end
 --]]---------------------------------------------------------
 
 function riot:getIDList(beginDate, raw)
-
-	--local b, c, h = request(self.endpoint, self.region, "v4.1/game/ids" .. "?beginDate=" .. tostring(beginDate) .. "&", self.key)
 
 	local b, c, h = self:_request("${endpoint}/api/lol/${region}/v4.1/game/ids?beginDate=${beginDate}&${key}" % {beginDate = beginDate})
 
@@ -401,6 +400,59 @@ end
 function riot:getChallengerLeague(queue, raw)
 
 	local b, c, h = self:_request("${endpoint}/api/lol/${region}/v2.5/league/challenger/?type=${queue}&${key}" % {queue = queue})
+
+	local final = nil
+
+	if raw then
+		final = b
+	else
+
+		final = decode(b)
+
+	end
+
+	if handleCode(c) then
+		return final, c, h
+	else
+		return nil, c, h
+	end
+
+end
+
+--[[---------------------------------------------------------
+	lol-static-data-v1.2 [BR, EUNE, EUW, KR, LAN, LAS, NA, OCE, RU, TR] 
+--]]---------------------------------------------------------
+
+--TODO--
+
+--[[---------------------------------------------------------
+	lol-status-v1.0 [BR, EUNE, EUW, LAN, LAS, NA, OCE, PBE, RU, TR] 
+--]]---------------------------------------------------------
+function riot:getShardList(raw)
+
+	local b, c, h = http.request("http://status.leagueoflegends.com/shards") -- HTTPS does not work.
+
+	local final = nil
+
+	if raw then
+		final = b
+	else
+
+		final = decode(b)
+
+	end
+
+	if handleCode(c) then
+		return final, c, h
+	else
+		return nil, c, h
+	end
+
+end
+
+function riot:getShardStatus(region, raw)
+
+	local b, c, h = http.request("http://status.leagueoflegends.com/shards/${region}" % {region = region}) -- HTTPS does not work.
 
 	local final = nil
 
