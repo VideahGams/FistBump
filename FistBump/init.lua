@@ -517,6 +517,33 @@ function riot:matchHistoryByID(id, championIds, rankedQueues, beginIndex, endInd
 end
 
 --[[---------------------------------------------------------
+	stats-v1.3 [BR, EUNE, EUW, KR, LAN, LAS, NA, OCE, RU, TR] 
+--]]---------------------------------------------------------
+
+function riot:getRankedStats(id, season, raw)
+
+	season = season or ""
+
+	local b, c, h = self:_request("${endpoint}/api/lol/${region}/v1.3/stats/by-summoner/${id}/ranked?season=${season}&${key}" % {id = id, season = season})
+
+	if handleCode(c) then
+
+		local final = nil
+
+		if raw then
+			final = b
+		else
+			final = decode(b)
+		end
+
+		return final, c, h
+	else
+		return nil, c, h
+	end
+
+end
+
+--[[---------------------------------------------------------
 	summoner-v1.4 [BR, EUNE, EUW, KR, LAN, LAS, NA, OCE, RU, TR]
 --]]---------------------------------------------------------
 
