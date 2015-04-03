@@ -149,17 +149,16 @@ function riot:getIDList(beginDate, raw)
 
 	local b, c, h = self:_request("${endpoint}/api/lol/${region}/v4.1/game/ids?beginDate=${beginDate}&${key}" % {beginDate = beginDate})
 
-	local final = nil
-
-	if raw then
-		final = b
-	else
-
-		final = decode(b)
-
-	end
-
 	if handleCode(c) then
+
+		local final = nil
+
+		if raw then
+			final = b
+		else
+			final = decode(b)
+		end
+
 		return final, c, h
 	else
 		return nil, c, h
@@ -177,17 +176,16 @@ function riot:getAllChampions(freeToPlay, raw)
 
 	local b, c, h = self:_request("${endpoint}/api/lol/${region}/v1.2/champion/?${freeToPlay}&${key}" % {freeToPlay = freeToPlay})
 
-	local final = nil
-
-	if raw then
-		final = b
-	else
-
-		final = decode(b)
-
-	end
-
 	if handleCode(c) then
+
+		local final = nil
+
+		if raw then
+			final = b
+		else
+			final = decode(b)
+		end
+
 		return final, c, h
 	else
 		return nil, c, h
@@ -199,17 +197,16 @@ function riot:getChampionByID(id, raw)
 
 	local b, c, h = self:_request("${endpoint}/api/lol/${region}/v1.2/champion/${id}?${key}" % {id = id})
 
-	local final = nil
-
-	if raw then
-		final = b
-	else
-
-		final = decode(b)
-
-	end
-
 	if handleCode(c) then
+
+		local final = nil
+
+		if raw then
+			final = b
+		else
+			final = decode(b)
+		end
+
 		return final, c, h
 	else
 		return nil, c, h
@@ -225,21 +222,14 @@ function riot:gameInfoFromID(id, raw)
 
 	local b, c, h = self:_request("${endpoint}/observer-mode/rest/consumer/getSpectatorGameInfo/${platform}/${id}?${key}" % {id = id})
 
-	local final = nil
-
 	if handleCode(c) then
+
+		local final = nil
 
 		if raw then
 			final = b
 		else
-
 			final = decode(b)
-
-		end
-
-		if tostring(c) == 404 then
-			print("Error: Could not load game (No current game with this Summoner ID)")
-			return
 		end
 
 		return final, c, h
@@ -257,17 +247,16 @@ function riot:getFeaturedGameList(raw)
 
 	local b, c, h = self:_request("${endpoint}/observer-mode/rest/featured/?${key}")
 
-	local final = nil
-
-	if raw then
-		final = b
-	else
-
-		final = decode(b)
-
-	end
-
 	if handleCode(c) then
+
+		local final = nil
+
+		if raw then
+			final = b
+		else
+			final = decode(b)
+		end
+
 		return final, c, h
 	else
 		return nil, c, h
@@ -283,17 +272,16 @@ function riot:getRecentGames(id, raw)
 
 	local b, c, h = self:_request("${endpoint}/api/lol/${region}/v1.3/game/by-summoner/${id}/recent?${key}" % {id = id})
 
-	local final = nil
-
-	if raw then
-		final = b
-	else
-
-		final = decode(b)
-
-	end
-
 	if handleCode(c) then
+
+		local final = nil
+
+		if raw then
+			final = b
+		else
+			final = decode(b)
+		end
+
 		return final, c, h
 	else
 		return nil, c, h
@@ -309,18 +297,17 @@ function riot:getLeagueBySummonerID(id, raw)
 
 	local b, c, h = self:_request("${endpoint}/api/lol/${region}/v2.5/league/by-summoner/${id}?${key}" % {id = id})
 
-	local final = nil
-
-	if raw then
-		final = b
-	else
-
-		final = decode(b)
-		final = final[tostring(id)][1]
-
-	end
-
 	if handleCode(c) then
+
+		local final = nil
+
+		if raw then
+			final = b
+		else
+			final = decode(b)
+			final = final[tostring(id)][1]
+		end
+
 		return final, c, h
 	else
 		return nil, c, h
@@ -332,18 +319,17 @@ function riot:getLeagueEntriesBySummonerID(id, raw)
 
 	local b, c, h = self:_request("${endpoint}/api/lol/${region}/v2.5/league/by-summoner/${id}/entry?${key}" % {id = id})
 
-	local final = nil
-
-	if raw then
-		final = b
-	else
-
-		final = decode(b)
-		final = final[tostring(id)][1]
-
-	end
-
 	if handleCode(c) then
+
+		local final = nil
+
+		if raw then
+			final = b
+		else
+			final = decode(b)
+			final = final[tostring(id)][1]
+		end
+
 		return final, c, h
 	else
 		return nil, c, h
@@ -355,18 +341,17 @@ function riot:getLeagueByTeamID(id, raw)
 
 	local b, c, h = self:_request("${endpoint}/api/lol/${region}/v2.5/league/by-team/${id}?${key}" % {id = id})
 
-	local final = nil
-
-	if raw then
-		final = b
-	else
-
-		final = decode(b)
-		final = final[tostring(id)][1]
-
-	end
-
 	if handleCode(c) then
+
+		local final = nil
+
+		if raw then
+			final = b
+		else
+			final = decode(b)
+			final = final[tostring(id)][1]
+		end
+
 		return final, c, h
 	else
 		return nil, c, h
@@ -378,18 +363,17 @@ function riot:getLeagueEntriesByTeamID(id, raw)
 
 	local b, c, h = self:_request("${endpoint}/api/lol/${region}/v2.5/league/by-team/${id}/entry?${key}" % {id = id})
 
-	local final = nil
-
-	if raw then
-		final = b
-	else
-
-		final = decode(b)
-		final = final[tostring(id)][1]
-
-	end
-
 	if handleCode(c) then
+
+		local final = nil
+
+		if raw then
+			final = b
+		else
+			final = decode(b)
+			final = final[tostring(id)][1]
+		end
+
 		return final, c, h
 	else
 		return nil, c, h
@@ -401,17 +385,16 @@ function riot:getChallengerLeague(queue, raw)
 
 	local b, c, h = self:_request("${endpoint}/api/lol/${region}/v2.5/league/challenger/?type=${queue}&${key}" % {queue = queue})
 
-	local final = nil
-
-	if raw then
-		final = b
-	else
-
-		final = decode(b)
-
-	end
-
 	if handleCode(c) then
+
+		local final = nil
+
+		if raw then
+			final = b
+		else
+			final = decode(b)
+		end
+
 		return final, c, h
 	else
 		return nil, c, h
@@ -432,17 +415,16 @@ function riot:getShardList(raw)
 
 	local b, c, h = http.request("http://status.leagueoflegends.com/shards") -- HTTPS does not work.
 
-	local final = nil
-
-	if raw then
-		final = b
-	else
-
-		final = decode(b)
-
-	end
-
 	if handleCode(c) then
+
+		local final = nil
+
+		if raw then
+			final = b
+		else
+			final = decode(b)
+		end
+
 		return final, c, h
 	else
 		return nil, c, h
@@ -454,17 +436,16 @@ function riot:getShardStatus(region, raw)
 
 	local b, c, h = http.request("http://status.leagueoflegends.com/shards/${region}" % {region = region}) -- HTTPS does not work.
 
-	local final = nil
-
-	if raw then
-		final = b
-	else
-
-		final = decode(b)
-
-	end
-
 	if handleCode(c) then
+
+		local final = nil
+
+		if raw then
+			final = b
+		else
+			final = decode(b)
+		end
+
 		return final, c, h
 	else
 		return nil, c, h
@@ -507,18 +488,17 @@ function riot:summonerInfoByName(summoner, raw)
 
 	local b, c, h = self:_request("${endpoint}/api/lol/${region}/v1.4/summoner/by-name/${name}?${key}" % {name = summoner})
 
-	local final = nil
-
-	if raw then
-		final = b
-	else
-
-		final = decode(b)
-		final = final[string.lower(summoner)]
-
-	end
-
 	if handleCode(c) then
+
+		local final = nil
+
+		if raw then
+			final = b
+		else
+			final = decode(b)
+			final = final[string.lower(summoner)]
+		end
+
 		return final, c, h
 	else
 		return nil, c, h
@@ -530,18 +510,17 @@ function riot:summonerInfoByID(id, raw)
 
 	local b, c, h = self:_request("${endpoint}/api/lol/${region}/v1.4/summoner/${id}?${key}" % {id = id})
 
-	local final = nil
-
-	if raw then
-		final = b
-	else
-
-		final = decode(b)
-		final = final[tostring(id)]
-
-	end
-
 	if handleCode(c) then
+
+		local final = nil
+
+		if raw then
+			final = b
+		else
+			final = decode(b)
+			final = final[tostring(id)]
+		end
+
 		return final, c, h
 	else
 		return nil, c, h
@@ -553,18 +532,17 @@ function riot:summonerName(id, raw)
 
 	local b, c, h = self:_request("${endpoint}/api/lol/${region}/v1.4/summoner/${id}/name?${key}" % {id = id})
 
-	local final = nil
-
-	if raw then
-		final = b
-	else
-
-		final = decode(b)
-		final = final[tostring(id)]
-
-	end
-
 	if handleCode(c) then
+
+		local final = nil
+
+		if raw then
+			final = b
+		else
+			final = decode(b)
+			final = final[tostring(id)]
+		end
+
 		return final, c, h
 	else
 		return nil, c, h
