@@ -28,7 +28,7 @@ getmetatable("").__mod = interp
 
 local path = ... .. "."
 local http = require("socket.http")
-local https = require(path .. "https")
+local https = require("ssl.https")
 local class = require(path .. "middleclass")
 local json = require(path .. "json")
 
@@ -142,7 +142,7 @@ function riot:setKey(key)
 end
 
 --[[---------------------------------------------------------
-	api-challenge-v4.1 [BR, EUNE, EUW, KR, LAN, LAS, NA, OCE, RU, TR]
+	api-challenge-v4.1 [BR, EUNE, EUW, KR, LAN, LAS, NA, OCE, RU, TR] [NOTE: This API call is no longer valid.]
 --]]---------------------------------------------------------
 
 -- https://developer.riotgames.com/api/methods#!/980/3340
