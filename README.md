@@ -23,8 +23,11 @@ As of **03/04/2015**, all of the following methods are complete:
 * **team-v2.4**
 
 # Librarys
-FistBump uses the following librarys:
-* **LuaSec** for https
-* **LuaSockets** for http
+FistBump requires the following librarys:
+* **LuaSec** for https support
+* **LuaSockets** for http support
+
+FistBump comes with the following librarys: 
+
 * **dkjson** for JSON Support
 * **MiddleClass** for classes
